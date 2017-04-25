@@ -1,40 +1,36 @@
 //
-//  HotelsViewController.m
+//  RoomViewController.m
 //  CoreDataHotel
 //
 //  Created by Rio Balderas on 4/24/17.
 //  Copyright © 2017 Jay Balderas. All rights reserved.
 //
 
+#import "RoomViewController.h"
 #import "HotelsViewController.h"
 #import "AppDelegate.h"
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
-
-#import "RoomViewController.h"
-#import "Room+CoreDataClass.h"
 #import "Room+CoreDataProperties.h"
-#import "AutoLayout.h"
+#import "Room+CoreDataClass.h"
 
+@interface RoomViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
-
-@property(strong, nonatomic) NSArray *allHotels;
+@property(strong, nonatomic) NSArray *allRooms;
 @property(strong, nonatomic) UITableView *tableView;
-
-
 
 @end
 
-@implementation HotelsViewController
+@implementation RoomViewController
 
 -(void)loadView{
     [super loadView];
-//    self.view.backgroundColor = [UIColor whiteColor];
+    //    self.view.backgroundColor = [UIColor whiteColor];
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    [self allHotels];
+    [self allRooms];
     [self.view addSubview:self.tableView];
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,52 +39,54 @@
     self.tableView.delegate = self;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
 
     
-    // Do any additional setup after loading the view.
+    self.allRooms = [self.selectedHotel.rooms allObjects];
 }
 
--(NSArray *)allHotels{
-    if (!_allHotels) {
+-(NSArray *)allRooms{
+    if (!_allRooms) {
         
         AppDelegate *appDelagate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         
         NSManagedObjectContext *context = appDelagate.persistentContainer.viewContext;
         
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Room"];
         
         NSError *fetchError;
         
-        NSArray *hotels = [context executeFetchRequest:request error:&fetchError];
+        NSArray *rooms = [context executeFetchRequest:request error:&fetchError];
         
         if (fetchError) {
             NSLog(@"There was an error fetching hotels from Core Data");
         }
         
-        _allHotels = hotels;
+        _allRooms = rooms;
     }
-    return _allHotels;
+    return _allRooms;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    Hotel *hotel = _allHotels[indexPath.row];
-    cell.textLabel.text = hotel.name;
+    Room *room = self.allRooms[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%hd", room.number];
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _allHotels.count;
+    return _allRooms.count;
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//write method for rooms here
+    //write method for rooms here
     RoomViewController *roomVC = [[RoomViewController alloc] init];
     
-    roomVC.selectedHotel = self.allHotels[indexPath.row];
+    roomVC.selectedHotel = self.allRooms[indexPath.row];
     
     [self.navigationController pushViewController:roomVC animated:YES];
 }
+
+
 
 @end
