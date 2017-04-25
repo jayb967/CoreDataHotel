@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "AutoLayout.h"
+#import "HotelsViewController.h"
 
 @interface ViewController ()
 
@@ -46,6 +47,10 @@
 
 -(void)browseButtonSelected{
     NSLog(@"wokring here for lab");
+
+    HotelsViewController *hotelViewController = [[HotelsViewController alloc]init];
+    [self.navigationController pushViewController:hotelViewController animated:YES];
+    
 }
 
 //MARK: Make button method with title
