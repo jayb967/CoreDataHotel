@@ -19,6 +19,9 @@
 		281874201EAE95EB00234E2A /* hotels.json in Resources */ = {isa = PBXBuildFile; fileRef = 2818741F1EAE95EB00234E2A /* hotels.json */; };
 		281874231EAEA48800234E2A /* HotelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281874221EAEA48800234E2A /* HotelsViewController.m */; };
 		281874291EAEB7D900234E2A /* RoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281874281EAEB7D900234E2A /* RoomViewController.m */; };
+		2818742C1EAFBC7600234E2A /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2818742B1EAFBC7600234E2A /* DatePickerViewController.m */; };
+		2818742F1EAFCF8A00234E2A /* AvailabilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2818742E1EAFCF8A00234E2A /* AvailabilityViewController.m */; };
+		281874321EB014EF00234E2A /* BookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281874311EB014EF00234E2A /* BookViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,12 @@
 		281874221EAEA48800234E2A /* HotelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelsViewController.m; sourceTree = "<group>"; };
 		281874271EAEB7D900234E2A /* RoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomViewController.h; sourceTree = "<group>"; };
 		281874281EAEB7D900234E2A /* RoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomViewController.m; sourceTree = "<group>"; };
+		2818742A1EAFBC7600234E2A /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
+		2818742B1EAFBC7600234E2A /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
+		2818742D1EAFCF8A00234E2A /* AvailabilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailabilityViewController.h; sourceTree = "<group>"; };
+		2818742E1EAFCF8A00234E2A /* AvailabilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailabilityViewController.m; sourceTree = "<group>"; };
+		281874301EB014EF00234E2A /* BookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookViewController.h; sourceTree = "<group>"; };
+		281874311EB014EF00234E2A /* BookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +102,12 @@
 		281874241EAEA49500234E2A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2818742D1EAFCF8A00234E2A /* AvailabilityViewController.h */,
+				2818742E1EAFCF8A00234E2A /* AvailabilityViewController.m */,
+				281874301EB014EF00234E2A /* BookViewController.h */,
+				281874311EB014EF00234E2A /* BookViewController.m */,
+				2818742A1EAFBC7600234E2A /* DatePickerViewController.h */,
+				2818742B1EAFBC7600234E2A /* DatePickerViewController.m */,
 				281874021EAE5F3000234E2A /* ViewController.h */,
 				281874031EAE5F3000234E2A /* ViewController.m */,
 				281874211EAEA48800234E2A /* HotelsViewController.h */,
@@ -201,9 +216,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2818742C1EAFBC7600234E2A /* DatePickerViewController.m in Sources */,
 				281874041EAE5F3000234E2A /* ViewController.m in Sources */,
 				2818740A1EAE5F3000234E2A /* CoreDataHotel.xcdatamodeld in Sources */,
 				281874011EAE5F3000234E2A /* AppDelegate.m in Sources */,
+				2818742F1EAFCF8A00234E2A /* AvailabilityViewController.m in Sources */,
+				281874321EB014EF00234E2A /* BookViewController.m in Sources */,
 				281874231EAEA48800234E2A /* HotelsViewController.m in Sources */,
 				281874291EAEB7D900234E2A /* RoomViewController.m in Sources */,
 				281873FE1EAE5F3000234E2A /* main.m in Sources */,
