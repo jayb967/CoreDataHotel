@@ -31,5 +31,7 @@
 +(NSLayoutConstraint *)trailingConstraintFrom:(UIView *)view
                                        toView:(UIView *)otherView;
 
++(NSArray *)constraintsWithVFLForViewDictionary:(NSDictionary *)viewDictionary forMetricsDictionary:(NSDictionary *)metricsDictionary withOptions:(NSLayoutFormatOptions)options withVisualFormat:(NSString *)visualFormat;
+
 
 @end

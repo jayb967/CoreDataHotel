@@ -12,7 +12,7 @@
 
 +(NSArray *)fullScreenContraintsWithVFLForView:(UIView *)view{
     NSMutableArray *constraints = [[NSMutableArray alloc]init];
-                        //  shorthand literal for dictionary. puts in argument of fullscree...above
+    //  shorthand literal for dictionary. puts in argument of fullscree...above
     NSDictionary *viewDictionary = @{@"view": view};
     //                                                                                 refer to the white pic in notes
     NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
@@ -21,18 +21,16 @@
                                                                                views:viewDictionary];
     
     NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                             options:0
-                                                                             metrics:nil
-                                                                               views:viewDictionary];
+                                                                           options:0
+                                                                           metrics:nil
+                                                                             views:viewDictionary];
     
     [constraints addObjectsFromArray:horizontalConstraints];
-        [constraints addObjectsFromArray:verticalConstraints];
+    [constraints addObjectsFromArray:verticalConstraints];
     
     [NSLayoutConstraint activateConstraints:constraints];
     
     return constraints.copy;
-
-    
 }
 
 +(NSLayoutConstraint *)genericContraintFrom:(UIView *)view
@@ -43,7 +41,7 @@
     NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:view attribute:attribute relatedBy:NSLayoutRelationEqual toItem:superView attribute:attribute multiplier:multiplier constant:0.0];
     
     constraint.active = YES;
-
+    
     return constraint;
 }
 
@@ -67,14 +65,24 @@
                                       toView:(UIView *)otherView{
     
     return [AutoLayout genericContraintFrom:view toView:otherView withAttribute:NSLayoutAttributeLeading];
-
+    
 }
 
 +(NSLayoutConstraint *)trailingConstraintFrom:(UIView *)view
                                        toView:(UIView *)otherView{
     
-return [AutoLayout genericContraintFrom:view toView:otherView
-                          withAttribute:NSLayoutAttributeTrailing];
+    return [AutoLayout genericContraintFrom:view toView:otherView
+                              withAttribute:NSLayoutAttributeTrailing];
+}
+
++(NSArray *)constraintsWithVFLForViewDictionary:(NSDictionary *)viewDictionary forMetricsDictionary:(NSDictionary *)metricsDictionary withOptions:(NSLayoutFormatOptions)options withVisualFormat:(NSString *)visualFormat {
+    NSArray *constraints = [[NSArray alloc]init];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:visualFormat options:options metrics:metricsDictionary views:viewDictionary];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
+    
+    return constraints.copy;
 }
 
 @end

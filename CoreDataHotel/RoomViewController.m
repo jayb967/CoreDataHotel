@@ -14,6 +14,10 @@
 #import "Room+CoreDataProperties.h"
 #import "Room+CoreDataClass.h"
 
+#import "DatePickerViewController.h"
+
+
+
 @interface RoomViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property(strong, nonatomic) NSArray *allRooms;
@@ -80,11 +84,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //write method for rooms here
-    RoomViewController *roomVC = [[RoomViewController alloc] init];
     
-    roomVC.selectedHotel = self.allRooms[indexPath.row];
-    
-    [self.navigationController pushViewController:roomVC animated:YES];
+    DatePickerViewController *datePickerController = [[DatePickerViewController alloc]init];
+    [self.navigationController pushViewController:datePickerController animated:YES];
 }
 
 
