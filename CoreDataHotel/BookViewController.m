@@ -13,6 +13,8 @@
 #import "AutoLayout.h"
 #import "Guest+CoreDataClass.h"
 #import "Guest+CoreDataProperties.h"
+#import "Reservation+CoreDataClass.h"
+#import "Reservation+CoreDataProperties.h"
 
 
 @interface BookViewController ()
@@ -29,6 +31,7 @@
     
     [self setupTextFields];
     [self setupLabels];
+    [self setupDoneButton];
 }
 
 -(void)setupTextFields{
@@ -95,6 +98,39 @@
     
     
     // layout
+}
+
+
+-(void)setupDoneButton{
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonSelected)];
+    [self.navigationItem setRightBarButtonItem:addButton];
+}
+-(void)doneButtonSelected{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
+    
+    Reservation *reservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
+    
+    reservation.startDate = self.startDate;
+    reservation.endDate = self.endDate;
+    reservation.room = self.reservedRoom;
+    
+    self.reservedRoom.reservation = reservation;
+    
+    //saving the new guest
+    reservation.guest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
+    //this puts the name in text field into the guest name in new object
+    reservation.guest.name = self.firstName.text;
+    
+    NSError *saveError;
+    [context save:&saveError];
+    
+    if (saveError) {
+        NSLog(@"Save error is %@", saveError);
+    } else {
+        NSLog(@"Save Reservation Successful");
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)viewDidLoad {
