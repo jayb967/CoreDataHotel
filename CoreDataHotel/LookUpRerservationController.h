@@ -14,8 +14,7 @@
 
 @property(strong, nonatomic) NSDate *startDate;
 @property(strong, nonatomic) NSDate *endDate;
-@property(strong, nonatomic) UITextField *firstName;
+
 @property(strong, nonatomic) Room *reservedRoom;
-@property(strong, nonatomic) Guest *reservation;
 
 @end
