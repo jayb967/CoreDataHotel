@@ -155,8 +155,11 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    Reservation *reservation = self.reservations[indexPath.row];
+//    Reservation *reservation = self.reservations[indexPath.row];
+    
+    Reservation *reservation = [self.filteredResults objectAtIndex:indexPath.row];
     Guest *guest = [reservation guest];
+    
     
     if (self.filteredResults == nil) {
      cell.textLabel.text = @"No Names shown for your/other guest's security";
@@ -166,7 +169,7 @@
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
         [dateFormat setDateFormat:@"MM/dd/yyyy hh:mm a"];
         
-        cell.textLabel.text = [NSString stringWithFormat:@"Guest: %@ %@, Staying in Room: %hd from:%@ to %@ ", guest.firstName, guest.lastName, reservation.room.number, [dateFormat stringFromDate:reservation.startDate],[dateFormat stringFromDate:reservation.endDate]];
+        cell.textLabel.text = [NSString stringWithFormat:@"Guest: %@ %@, Staying in Room: %hd         from:%@ to %@ ", guest.firstName, guest.lastName, reservation.room.number, [dateFormat stringFromDate:reservation.startDate],[dateFormat stringFromDate:reservation.endDate]];
     }
     
  
