@@ -58,7 +58,6 @@
     // Do any additional setup after loading the view.
 }
 
-
 -(void)loadView{
     [super loadView];
     
@@ -89,7 +88,6 @@
     
     
     [[self tableView] reloadData];
-    
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
@@ -101,13 +99,8 @@
         self.filteredResults = [[NSMutableArray alloc] init];
         self.filteredResults = [[self.reservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS %@ or guest.firstName CONTAINS %@", searchText, searchText]] mutableCopy];
     }
-//        [self.filteredResults setArray:[[self.filteredResults filteredArrayUsingPredicate:[self filterByFirstName:@"guest.firstName" andLastName:@"guest.lastName" usingSearchTerms:searchBar.text]]mutableCopy]];
-
     [[self tableView] reloadData];
 }
-
-
-
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     self.isSearching = NO;
     self.filteredResults = nil;
@@ -147,15 +140,11 @@
     else {
         return 1;
     }
-    
-    
-//    return self.reservations.count;
+  
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
-//    Reservation *reservation = self.reservations[indexPath.row];
     
     Reservation *reservation = [self.filteredResults objectAtIndex:indexPath.row];
     Guest *guest = [reservation guest];
@@ -171,11 +160,7 @@
         
         cell.textLabel.text = [NSString stringWithFormat:@"Guest: %@ %@, Staying in Room: %hd         from:%@ to %@ ", guest.firstName, guest.lastName, reservation.room.number, [dateFormat stringFromDate:reservation.startDate],[dateFormat stringFromDate:reservation.endDate]];
     }
-    
- 
-    
     cell.textLabel.numberOfLines = 0;
-    
     return cell;
 }
 
