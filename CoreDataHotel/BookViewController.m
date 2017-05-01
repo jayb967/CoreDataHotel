@@ -13,6 +13,8 @@
 #import "AutoLayout.h"
 #import "Guest+CoreDataClass.h"
 #import "Guest+CoreDataProperties.h"
+#import "Reservation+CoreDataClass.h"
+#import "Reservation+CoreDataProperties.h"
 
 
 @interface BookViewController ()
@@ -29,6 +31,7 @@
     
     [self setupTextFields];
     [self setupLabels];
+    [self setupDoneButton];
 }
 
 -(void)setupTextFields{
@@ -42,26 +45,25 @@
     UITextField *firstName = [[UITextField alloc]init];
     [self.view addSubview:firstName];
     firstName.placeholder = @"Type in first name.";
-    firstName.backgroundColor = [UIColor grayColor];
+    firstName.borderStyle = UITextBorderStyleRoundedRect;
     [AutoLayout leadingConstraintFrom: firstName toView: self.view];
     [AutoLayout trailingConstraintFrom: firstName toView: self.view];
 
     UITextField *lastName = [[UITextField alloc]init];
     [self.view addSubview:lastName];
     lastName.placeholder = @"Type in last name.";
-    lastName.backgroundColor = [UIColor grayColor];
+    lastName.borderStyle = UITextBorderStyleRoundedRect;
     [AutoLayout leadingConstraintFrom: lastName toView: self.view];
     [AutoLayout trailingConstraintFrom: lastName toView: self.view];
     
     UITextField *email = [[UITextField alloc]init];
     [self.view addSubview:email];
     email.placeholder = @"Enter your Email";
-    email.backgroundColor = [UIColor grayColor];
+    email.borderStyle = UITextBorderStyleRoundedRect;
     [AutoLayout leadingConstraintFrom: email toView: self.view];
     [AutoLayout trailingConstraintFrom: email toView: self.view];
     
-    
-    
+
     NSDictionary *viewDictionary = @{@"firstName": firstName, @"lastName": lastName, @"email": email};
     
     NSDictionary *metricsDictionary = @{@"topMargin": [NSNumber numberWithFloat:topMargin + 30], @"textViewHeight": [NSNumber numberWithFloat:textViewHeight]};
@@ -73,6 +75,10 @@
     [firstName setTranslatesAutoresizingMaskIntoConstraints:NO];
     [lastName setTranslatesAutoresizingMaskIntoConstraints:NO];
     [email setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    self.firstName = firstName;
+    self.lastName = lastName;
+    self.email = email;
     
 }
 -(void)setupLabels{
@@ -95,6 +101,41 @@
     
     
     // layout
+}
+
+
+-(void)setupDoneButton{
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonSelected)];
+    [self.navigationItem setRightBarButtonItem:addButton];
+}
+-(void)doneButtonSelected{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
+    
+    Reservation *reservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
+    
+    Guest *guest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
+
+    guest.firstName = self.firstName.text;
+    guest.lastName = self.lastName.text;
+    guest.email = self.email.text;
+    
+    reservation.startDate = self.startDate;
+    reservation.endDate = self.endDate;
+    reservation.room = self.reservedRoom;
+    
+    reservation.guest = guest;
+
+    self.reservedRoom.reservation = reservation;
+    NSError *saveError;
+    [context save:&saveError];
+    
+    if (saveError) {
+        NSLog(@"Save error is %@", saveError);
+    } else {
+        NSLog(@"Save Reservation Successful");
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)viewDidLoad {
